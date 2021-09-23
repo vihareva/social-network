@@ -3,22 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {changeNewText, onChange, state, stateType, subscribe} from './redux/state'
-import {addPost} from'./redux/state'
+import {store} from "./redux/state";
 
 
-export const renderTree=()=>{
+    export const renderTree=()=>{
     ReactDOM.render(
-        <App state={state}
-             addPost={addPost}
-             changeNewText={changeNewText}
-        />,
+        <App store={store} />,
         document.getElementById('root')
     )
 
 }
 renderTree()
-subscribe(renderTree);
+store.subscribe(renderTree);
 
 
 // If you want to start measuring performance in your app, pass a function

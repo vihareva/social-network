@@ -1,15 +1,15 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {postDataType} from "../../../redux/state";
+import {actionTypes, addPostActionCreator, postDataType, updateNewPostTextActionCreator} from "../../../redux/state";
 
 
 
 type MyPostsPropsType={
     postData:Array<postDataType>
-    addPost:(postMessage: string)=>void
+    dispatch: (action: actionTypes)=>void
     message: string
-    changeNewText: (newText: string)=>void
+
 }
 
 const MyPosts = (props:MyPostsPropsType ) => {
@@ -18,11 +18,15 @@ const MyPosts = (props:MyPostsPropsType ) => {
     //вернет массив jsx элементов [<Post.../>, <Post.../>]
 
     const addPost=()=>{
-            props.addPost(props.message)
+            props.dispatch(addPostActionCreator(props.message))
 
     }
     // <button onClick={addPost} : кнопке  отдаем ссылку на функцию которая при клике запустится
     //onClick={()=>{addPost()}} то же самое
+
+    const newTextChangeHandler=(e: ChangeEvent<HTMLTextAreaElement>)=>{
+        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
+    }
 
     return (
         <div className={s.postsBlock}>
@@ -30,10 +34,7 @@ const MyPosts = (props:MyPostsPropsType ) => {
             <div>
                 <div>
                     <textarea value={props.message}
-                              onChange={(e)=>{
-                                  console.log(e.currentTarget.value);
-                                  props.changeNewText(e.currentTarget.value)
-                    }}/>
+                              onChange={newTextChangeHandler}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>

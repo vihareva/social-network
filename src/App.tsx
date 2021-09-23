@@ -6,17 +6,15 @@ import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {changeNewText, stateType} from "./redux/state";
+import { StoreType} from "./redux/state";
 
 
 type AppPropsType = {
-    state: stateType
-    addPost: (postMessage: string) => void
-    changeNewText: (newText: string)=>void
+    store: StoreType
 }
 
 function App(props: AppPropsType) {
-
+const state=props.store.getState();
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -24,12 +22,13 @@ function App(props: AppPropsType) {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <Dialogs state={props.state.messagesPage}/>}/>
+                           render={() => <Dialogs
+                               state={state.messagesPage}
+                               dispatch={props.store.dispatch.bind(props.store)}/>}/>
                     <Route path='/profile'
                            render={() => <Profile
-                               state={props.state.profilePage}
-                               addPost={props.addPost}
-                               changeNewText={props.changeNewText}
+                               state={state.profilePage}
+                              dispatch={props.store.dispatch.bind(props.store)}
                            />}
                     />
                 </div>
