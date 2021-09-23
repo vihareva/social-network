@@ -2,12 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {
-    actionTypes,
-    messagesPageType,
-    sendMessageActionCreator, updateNewMessageTextActionCreator,
-    updateNewPostTextActionCreator
-} from "../../redux/state";
+import {actionTypes, messagesPageType} from "../../redux/state";
+import {sendMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reducer';
+
 
 
 type DialogsPropsType = {
@@ -19,7 +16,7 @@ const Dialogs = (props: DialogsPropsType) => {
         props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value))
     }
     return (
-        <div className={s.dialogs}>2
+        <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {props.state.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)}
             </div>

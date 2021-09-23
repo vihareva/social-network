@@ -6,7 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import { StoreType} from "./redux/state";
+import {StoreType} from "./redux/state";
 
 
 type AppPropsType = {
@@ -14,7 +14,7 @@ type AppPropsType = {
 }
 
 function App(props: AppPropsType) {
-const state=props.store.getState();
+    const state = props.store.getState();
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -28,7 +28,7 @@ const state=props.store.getState();
                     <Route path='/profile'
                            render={() => <Profile
                                state={state.profilePage}
-                              dispatch={props.store.dispatch.bind(props.store)}
+                               dispatch={props.store.dispatch.bind(props.store)}
                            />}
                     />
                 </div>

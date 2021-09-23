@@ -6,9 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import {store} from "./redux/state";
 
 
-    export const renderTree=()=>{
+export const renderTree = () => {
     ReactDOM.render(
-        <App store={store} />,
+        <App store={store}/>,
         document.getElementById('root')
     )
 

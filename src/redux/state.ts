@@ -1,3 +1,7 @@
+import {ProfileActionType, profileReducer} from "./profile-reducer";
+import {DialogsActionType, dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
+
 export type DialogsDataType = {
     id: number
     name: string
@@ -28,41 +32,9 @@ export type profilePageType = {
 export type StateType = {
     messagesPage: messagesPageType
     profilePage: profilePageType
+    sidebar: any
 }
-type AddPostActionType=ReturnType<typeof addPostActionCreator>
-
-type UpdateNewPostTextActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newPostText: string
-}
-type  UpdateNewMessageTextActionType={
-    type: "UPDATE-NEW-MESSAGE-TEXT"
-    newMessageText: string
-}
-type SendMessageActionType={
-    type: "SEND-MESSAGE"
-}
-
-export type actionTypes = AddPostActionType
-                        | UpdateNewPostTextActionType
-                        | UpdateNewMessageTextActionType
-                        |SendMessageActionType
-
-export let addPostActionCreator=(postMessage: string)=>{
-    return {type: "ADD-POST", postMessage: postMessage} as const
-}
-
-export let updateNewPostTextActionCreator=(text: string):UpdateNewPostTextActionType => {
-    return {type: "UPDATE-NEW-POST-TEXT", newPostText: text}
-}
-
-export let  updateNewMessageTextActionCreator=(text: string):UpdateNewMessageTextActionType => {
-    return {type: "UPDATE-NEW-MESSAGE-TEXT", newMessageText: text}
-}
-
-export let sendMessageActionCreator =():SendMessageActionType => {
-    return {type: "SEND-MESSAGE"}
-}
+export type actionTypes=ProfileActionType|DialogsActionType
 
 export type StoreType = {
     _state: StateType
@@ -100,7 +72,8 @@ export const store: StoreType = {
                 {id: 2, message: 'It\'s my first post', likesCount: 11,},
                 {id: 3, message: 'I am so fine today', likesCount: 11,}
             ]
-        }
+        },
+        sidebar:{}
 
     },
 
@@ -117,33 +90,11 @@ export const store: StoreType = {
     },
 
   dispatch(action){
-      if (action.type === 'ADD-POST') {
-          let newPost = {
-              id: 4,
-              message: action.postMessage,
-              likesCount: 0
-          }
-          this._state.profilePage.postData.push(newPost);
-          this._state.profilePage.messageForNewPost = ''
-          this._onChange()
-      }
+      this._state.profilePage=profileReducer(this._state.profilePage, action)
+      this._state.messagesPage=dialogsReducer(this._state.messagesPage, action)
+      this._state.sidebar=sidebarReducer(this._state.sidebar, action)
 
-      else if (action.type === "UPDATE-NEW-POST-TEXT") {
-          this._state.profilePage.messageForNewPost = action.newPostText;
-          this._onChange()
-      }
-
-      else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
-          this._state.messagesPage.newMessageText = action.newMessageText;
-          this._onChange()
-      }
-
-      else if (action.type === 'SEND-MESSAGE') {
-          let newMessage = this._state.messagesPage.newMessageText;
-          this._state.messagesPage.messagesData.push({id: 8, message:newMessage })
-          this._state.messagesPage.newMessageText = ''
-          this._onChange()
-      }
+      this._onChange();
   }
 
 }
