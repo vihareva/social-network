@@ -4,36 +4,28 @@ import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
-import Dialogs from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
-import {StoreType} from "./redux/state";
+import { Route} from "react-router-dom";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/users/UsersContainer";
 
 
-type AppPropsType = {
-    store: StoreType
-}
 
-function App(props: AppPropsType) {
-    const state = props.store.getState();
+function App() {
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <Dialogs
-                               state={state.messagesPage}
-                               dispatch={props.store.dispatch.bind(props.store)}/>}/>
+                           render={() => <DialogsContainer/>}/>
                     <Route path='/profile'
-                           render={() => <Profile
-                               state={state.profilePage}
-                               dispatch={props.store.dispatch.bind(props.store)}
-                           />}
-                    />
+                           render={() => <Profile/>}/>
+                    <Route path='/users'
+                           render={ () => <UsersContainer /> }/>
+
                 </div>
             </div>
-        </BrowserRouter>)
+      )
 }
 
 export default App;
