@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 let initialState = {
     users: [],
     pageSize: 10,
@@ -134,4 +137,9 @@ export const toggleFollowingProgress=(isFetching:boolean, userId:number ):Toggle
     isFetching,
     userId
 })
+
+
+
+
+
 export default usersReducer;
