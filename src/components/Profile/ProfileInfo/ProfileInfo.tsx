@@ -4,10 +4,12 @@ import {ProfileType} from "../../../redux/profile-reducer";
 import Preloader from "../../common/Preloader";
 import styles from "../../users/Users.module.css";
 import userPhoto from "../../../assets/userPhoto.jpg";
+import {ProfileStatus} from "./Status/ProfileStatus";
 
 
 type ProfileInfoPropsType={
     profile:ProfileType| null
+    status: string
 }
 const ProfileInfo = (props:ProfileInfoPropsType ) => {
     if (!props.profile) {
@@ -24,7 +26,7 @@ const ProfileInfo = (props:ProfileInfoPropsType ) => {
                     <div>{props.profile.fullName}</div>
                     <div>{props.profile.contacts.instagram}</div>
 
-                    <div></div>
+                    <ProfileStatus status={props.status}/>
                 </div>
             </div>
         </div>

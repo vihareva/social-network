@@ -3,11 +3,13 @@ import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import { Redirect } from 'react-router-dom';
 
 const Dialogs = (props: DialogsPropsType) => {
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewMessageBody(e.currentTarget.value)
     }
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
