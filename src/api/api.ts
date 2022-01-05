@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
+import {FormDataType} from "../components/Login/Login";
 
 const baseURL=`https://social-network.samuraijs.com/api/1.0/`
 
@@ -36,7 +37,20 @@ export const usersAPI={
 }
 export const authAPI = {
     me() {
-        return instance.get<any>(`auth/me`)
+        return instance.get<ResponseType<AuthMeTypeResponse>>(`auth/me`)
+    },
+    login(email: string, password: string, rememberMe: boolean){
+        return instance.post<FormDataType, AxiosResponse<ResponseType<{ userId: 2 }>>>(`auth/login`, {email, password, rememberMe})
+    },
+    logout(){
+        return instance.delete<ResponseType>(`auth/login` )
     }
 }
 
+type AuthMeTypeResponse ={ id: number, email: string, login: string }
+
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
