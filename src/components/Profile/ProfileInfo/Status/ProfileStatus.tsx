@@ -12,7 +12,9 @@ export const ProfileStatus = (props: StatusType) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [status, setStatus] = useState<string>(props.status)
 
-
+    useEffect(()=>{
+        setStatus(props.status)
+    }, [props.status])
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
