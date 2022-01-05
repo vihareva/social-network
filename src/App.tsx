@@ -1,40 +1,60 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header/Header';
-import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
-import Dialogs from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
-import {changeNewText, stateType} from "./redux/state";
+import {Route, withRouter} from "react-router-dom";
+import UsersContainer from "./components/users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import {Login} from "./components/Login/Login";
+import {connect} from "react-redux";
+import {AppStateType} from "./redux/redux-store";
+import {compose} from "redux";
+import {initializeApp} from "./redux/app-reducer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import Navbar from "./components/Navbar/Navbar";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
-
-type AppPropsType = {
-    state: stateType
-    addPost: (postMessage: string) => void
-    changeNewText: (newText: string)=>void
+type mapStateToPropsType = {
+    isInitialized:boolean
+}
+type mapDispatchToPropsType = {
+    initializeApp: () => void
 }
 
-function App(props: AppPropsType) {
+export type AppComponentType = mapStateToPropsType & mapDispatchToPropsType
 
-    return (
-        <BrowserRouter>
+class App extends React.Component<AppComponentType> {
+    componentDidMount() {
+        this.props.initializeApp()
+    }
+
+    render() {
+        if(!this.props.isInitialized){
+            return <div>preloader</div>
+        }
+
+        return (
             <div className='app-wrapper'>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <Dialogs state={props.state.messagesPage}/>}/>
-                    <Route path='/profile'
-                           render={() => <Profile
-                               state={props.state.profilePage}
-                               addPost={props.addPost}
-                               changeNewText={props.changeNewText}
-                           />}
-                    />
+                           render={() => <DialogsContainer/>}/>
+                    <Route path='/profile/:userId?'
+                           render={() => <ProfileContainer/>}/>
+                    <Route path='/users'
+                           render={() => <UsersContainer/>}/>
+                    <Route path='/login'
+                           render={() => <Login/>}/>
                 </div>
             </div>
-        </BrowserRouter>)
+        )
+    }
 }
 
-export default App;
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
+    isInitialized: state.app.isInitialized
+});
+
+export default compose<React.ComponentType>(
+    withRouter,
+    connect(mapStateToProps, {initializeApp}))(App);
+
