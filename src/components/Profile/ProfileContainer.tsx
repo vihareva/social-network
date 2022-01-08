@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {ProfileType, getUserProfile, getUserStatus} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 type PathParamsType = {
@@ -31,7 +30,7 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        debugger
+
         let id = this.props.match.params.userId;
         if (!id) {
             this.props.userId

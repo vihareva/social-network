@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Route, withRouter} from "react-router-dom";
-import UsersContainer from "./components/users/UsersContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Login} from "./components/Login/Login";
 import {connect} from "react-redux";

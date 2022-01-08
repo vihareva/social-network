@@ -2,7 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/profile-reducer";
 import Preloader from "../../common/Preloader";
-import styles from "../../users/Users.module.css";
+import styles from "../../Users/Users.module.css";
 import userPhoto from "../../../assets/userPhoto.jpg";
 import {ProfileStatus} from "./Status/ProfileStatus";
 

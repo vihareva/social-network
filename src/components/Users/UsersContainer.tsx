@@ -1,7 +1,7 @@
 // import React from 'react';
 // import Users from "./Users";
 // import {connect} from "react-redux";
-// import {follow, usersStateType, setUsers, unfollow, UserType} from "../../redux/users-reducer";
+// import {follow, usersStateType, setUsers, unfollow, UserType} from "../../redux/Users-reducer";
 // import {AppStateType} from "../../redux/redux-store";
 // import {Dispatch} from "redux";
 //
@@ -12,7 +12,7 @@
 // type mapDispatchToPropsType={
 //     follow: (userId: number) =>void
 //     unfollow: (userId: number) => void
-//     setUsers: (users: Array<UserType>) => void
+//     setUsers: (Users: Array<UserType>) => void
 //
 // }
 //
@@ -32,8 +32,8 @@
 //         unfollow: (userId: number) => {
 //             dispatch(unfollow(userId));
 //         },
-//         setUsers: (users: Array<UserType>) => {
-//             dispatch(setUsers(users));
+//         setUsers: (Users: Array<UserType>) => {
+//             dispatch(setUsers(Users));
 //         }
 //     }
 // }
@@ -47,13 +47,11 @@ import {
     setUsers,
     setTotalUsersCount,
     toggleIsFetching,
-    unfollow, UserType, toggleFollowingProgress, getUsers, ThunkType
+    unfollow, UserType, toggleFollowingProgress, getUsers,
 } from '../../redux/users-reducer';
-import Users from './Users';
+import Users from '../Users/Users';
 import Preloader from "../common/Preloader";
 import {AppStateType} from "../../redux/redux-store";
-import { usersAPI} from "../../api/api";
-import {Dispatch} from "redux";
 
 
 class UsersContainer extends React.Component<UsersPropsType> {

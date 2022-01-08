@@ -1,10 +1,10 @@
 // import React from 'react';
 // import styles from './Users.module.css';
-// import {usersStateType, UserType} from "../../redux/users-reducer";
+// import {usersStateType, UserType} from "../../redux/Users-reducer";
 // import {UsersPropsType} from "./UsersContainer";
 //
 // let Users = (props:UsersPropsType) => {
-//     if (props.usersPage.users.length === 0) {
+//     if (props.usersPage.Users.length === 0) {
 //         props.setUsers([
 //                 {
 //                     id: 1,
@@ -36,7 +36,7 @@
 //
 //     return <div>
 //         {
-//             props.usersPage.users.map(u => <div key={u.id}>
+//             props.usersPage.Users.map(u => <div key={u.id}>
 //                 <span>
 //                     <div>
 //                         <img src={u.photoUrl} className={styles.userPhoto}/>
@@ -70,12 +70,9 @@
 // export default Users;
 
 import React from 'react';
-import styles from './Users.module.css';
 import {UserType} from "../../redux/users-reducer";
-import { NavLink } from 'react-router-dom';
-import axios from "axios";
-import {usersAPI} from "../../api/api";
-import userPhoto from "../../assets/userPhoto.jpg"
+import {Paginator} from "../common/Paginator";
+import {User} from "./User";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -85,59 +82,22 @@ type UsersPropsType = {
     users: Array<UserType>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    toggleFollowingProgress: (isFetching:boolean, userId:number )=>void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgressIDs: number[]
 }
 
 let Users = (props: UsersPropsType) => {
 
-    //let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-
-    let pages = [];
-    for (let i = 1; i <= 40; i++) {
-        pages.push(i);
-    }
-
     return <div>
-        <div>
-            {pages.map(p => {
-                return <span className={props.currentPage === p ? styles.selectedPage: ''}
-                             onClick={(e) => {
-                                 props.onPageChanged(p);
-                             }}>{p}</span>
-            })}
-        </div>
-        {
-            props.users.map(u => <div key={u.id}>
-                <span>
-                    <div>
-                       <NavLink to={'/profile/' + u.id}>
-                        <img src={u.photos.small != null ? u.photos.small : userPhoto }
-                             className={styles.userPhoto}/>
-                       </NavLink>
-                    </div>
-                    <div>
-                        {u.followed
-                            ? <button disabled={props.followingInProgressIDs.some(id=>id===u.id)}
-                                      onClick={() => {props.unfollow(u.id)}}>Unfollow</button>
-                            : <button disabled={props.followingInProgressIDs.some(id=>id===u.id)}
-                                      onClick={() => {props.follow(u.id)}}>Follow</button>}
-                    </div>
-                </span>
-                <span>
-                    <span>
-                        <div>{u.name}</div>
-                        <div>{u.status}</div>
-                    </span>
-                    <span>
-                        <div>{"u.location.country"}</div>
-                        <div>{"u.location.city"}</div>
-                    </span>
-                </span>
-            </div>)
-        }
+        <Paginator totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+                   currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
+        {props.users.map(u => <User key={u.id}
+                                    user={u}
+                                    follow={props.follow}
+                                    followingInProgressIDs={props.followingInProgressIDs}
+                                    toggleFollowingProgress={props.toggleFollowingProgress}
+                                    unfollow={props.unfollow}/>)}
     </div>
 }
-
 
 export default Users;
