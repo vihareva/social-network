@@ -2,6 +2,9 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 
+import {AppThunk} from "./redux-store";
+import {ProfileDescriptionFormDataType} from "../components/Profile/ProfileInfo/ProfileDescriptionForm";
+
 export type postDataType = {
     id: number
     message: string
@@ -11,29 +14,32 @@ export type postDataType = {
 export type profilePageType = {
     messageForNewPost: string,
     postData: Array<postDataType>
-    profile: null | ProfileType
+    profile: ProfileType
     status: string
 }
-
+export type photosType = {
+    small: string
+    large: string
+}
 export type ProfileType = {
-    photos: { small: string, large: string },
-    //userId: number
+    photos: photosType,
+    userId: number
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
-    contacts: {
-        github: string,
-        vk: string,
-        facebook: string,
-        instagram: string,
-        twitter: string,
-        website: string,
-        youtube: string,
-        mainLink: string
-    }
-
+    aboutMe: string,
+    contacts: ContactsType
 }
-
+export type ContactsType = {
+    github: string,
+    vk: string,
+    facebook: string,
+    instagram: string,
+    twitter: string,
+    website: string,
+    youtube: string,
+    mainLink: string
+}
 type AddPostActionType = {
     type: "ADD-POST",
     postMessage: string
@@ -51,6 +57,7 @@ export type ProfileActionType = AddPostActionType
     | setUserStatusActionType
     | updateUserStatusActionType
     | DeletePostActionType
+    | updatePhotoActionType
 
 
 let initialState = {
@@ -60,7 +67,7 @@ let initialState = {
         {id: 2, message: 'It\'s my first post', likesCount: 11,},
         {id: 3, message: 'I am so fine today', likesCount: 11,}
     ],
-    profile: null,
+    profile: {} as ProfileType,
     status: ''
 }
 
@@ -91,6 +98,13 @@ export const profileReducer = (state: profilePageType = initialState, action: Pr
         case "DELETE-POST": {
             return {...state, postData: state.postData.filter(p => p.id !== action.id)}
         }
+        case "UPDATE_PHOTO": {
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
+        //{ profile: { photos: photosType };
+        // messageForNewPost: string;
+        // postData: Array<postDataType>;
+        // status: string }
         default:
             return state;
     }
@@ -138,5 +152,25 @@ export const updateUserStatus = (status: string) => async (dispatch: Dispatch) =
     let resp = await usersAPI.updateStatus(status)
     if (resp.data.resultCode === 0) {
         dispatch(updateStatusAC(status));
+    }
+}
+
+export const updateProfileDescription = (data: ProfileDescriptionFormDataType, id: number): AppThunk => async (dispatch) => {
+    let resp = await usersAPI.updateProfileDescription(data)
+    if (resp.data.resultCode === 0) {
+        dispatch(getUserProfile(id));
+    }
+}
+
+export let updatePhotoAC = (photos: photosType) => {
+    return {type: "UPDATE_PHOTO", photos} as const
+}
+type updatePhotoActionType = ReturnType<typeof updatePhotoAC>
+
+export const updatePhoto = (file: File) => async (dispatch: Dispatch) => {
+
+    let resp = await usersAPI.updatePhoto(file)
+    if (resp.data.resultCode === 0) {
+        dispatch(updatePhotoAC(resp.data.data.photos));
     }
 }

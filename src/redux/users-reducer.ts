@@ -9,7 +9,8 @@ let initialState = {
     totalUsersCount: 0,
     currentPageNumber: 1,
     isFetching: true,
-    followingInProgressIDs: []
+    followingInProgressIDs: [],
+    newPortionNumber: 1
 };
 
 export type UserType = {
@@ -29,7 +30,8 @@ export type usersStateType = {
     totalUsersCount: number,
     currentPageNumber: number,
     isFetching: boolean
-    followingInProgressIDs: number[]
+    followingInProgressIDs: number[],
+    newPortionNumber: number
 }
 
 type setUsersActionType = {
@@ -160,6 +162,7 @@ export const unfollow = (userId: number) => {
         dispatch(toggleFollowingProgress(false, userId));
     }
 }
+
 
 
 export default usersReducer;

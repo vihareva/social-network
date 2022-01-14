@@ -7,12 +7,12 @@ type StatusType = {
 }
 
 export const ProfileStatus = (props: StatusType) => {
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
 
     const [editMode, setEditMode] = useState<boolean>(false)
     const [status, setStatus] = useState<string>(props.status)
 
-    useEffect(()=>{
+    useEffect(() => {
         setStatus(props.status)
     }, [props.status])
 
@@ -26,6 +26,7 @@ export const ProfileStatus = (props: StatusType) => {
     }
 
     return <>
+        status :
         {editMode
             ? <div>
                 <input onChange={onChange} autoFocus value={status} onBlur={activateViewMode}/>

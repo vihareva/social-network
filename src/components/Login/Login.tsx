@@ -11,16 +11,19 @@ export type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captchaText: string | null
 }
+
 export const Login = () => {
     const dispatch = useDispatch();
     const {register, handleSubmit, setError, formState: {errors}} = useForm<FormDataType>({mode: 'onBlur'});
     const isAuth = useSelector<AppStateType, boolean>(st => st.auth.isAuth);
+    const captcha = useSelector<AppStateType, string | null>(st => st.auth.captcha);
     const appError = useSelector<AppStateType, string | null>(st => st.app.error)
 
     const onSubmit = (data: FormDataType) => {
-        const {email, password, rememberMe} = data
-        dispatch(login(email, password, rememberMe));
+        const {email, password, rememberMe, captchaText} = data
+        dispatch(login(email, password, rememberMe, captchaText));
     }
 
     if (isAuth) {
@@ -61,10 +64,19 @@ export const Login = () => {
                         <Checkbox    {...register('rememberMe')}
                         />}
                     />
-                    {appError && <div>{appError} </div>}
+                    {captcha && <div>
+                        <img src={captcha} alt=""/>
+                        <TextField label="Captcha"
+                                   margin="normal"
+                                   {...register('captchaText', {
+                                       required: 'required'
+                                   })}
+                        />
+                    </div>}
                     <Button type={'submit'} variant={'contained'} color={'primary'}>
                         Login
                     </Button>
+                    {appError && <div>{appError} </div>}
                 </FormGroup>
             </form>
         </Grid>

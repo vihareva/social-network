@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import {Route, withRouter} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Login} from "./components/Login/Login";
 import {connect} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
@@ -10,10 +9,13 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {withSuspense} from "./hoc/withSuspense";
+
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 
 type mapStateToPropsType = {
-    isInitialized:boolean
+    isInitialized: boolean
 }
 type mapDispatchToPropsType = {
     initializeApp: () => void
@@ -27,7 +29,7 @@ class App extends React.Component<AppComponentType> {
     }
 
     render() {
-        if(!this.props.isInitialized){
+        if (!this.props.isInitialized) {
             return <div>preloader</div>
         }
 
@@ -37,9 +39,9 @@ class App extends React.Component<AppComponentType> {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <DialogsContainer/>}/>
+                           render={withSuspense(DialogsContainer)}/>
                     <Route path='/profile/:userId?'
-                           render={() => <ProfileContainer/>}/>
+                           render={withSuspense(ProfileContainer)}/>
                     <Route path='/users'
                            render={() => <UsersContainer/>}/>
                     <Route path='/login'
