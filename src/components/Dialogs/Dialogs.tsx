@@ -3,7 +3,8 @@ import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-import { Redirect } from 'react-router-dom';
+import cs from "../../assets/Common.module.css";
+import img from '../../assets/zzzz.jpg'
 
 const Dialogs = (props: DialogsPropsType) => {
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -12,6 +13,7 @@ const Dialogs = (props: DialogsPropsType) => {
 
     return (
         <div className={s.dialogs}>
+            <img src={img} />
             <div className={s.dialogsItems}>
                 {props.dialogsPage.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)}
             </div>
@@ -25,11 +27,11 @@ const Dialogs = (props: DialogsPropsType) => {
                </textarea>
                     </div>
                     <div>
-                        <button onClick={() => props.sendMessage()}> send</button>
+                        <button  className={`${s.button} ${cs.button}`}  onClick={() => props.sendMessage()}> send</button>
                     </div>
                 </div>
-
             </div>
+
         </div>
     )
 }

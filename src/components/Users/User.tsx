@@ -1,6 +1,8 @@
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../assets/userPhoto.jpg";
 import styles from "./Users.module.css";
+import cs from "../../assets/Common.module.css";
+import s from "./User.module.css";
 import React from "react";
 import {UserType} from "../../redux/users-reducer";
 
@@ -14,35 +16,31 @@ type UserPropsType = {
 
 export let User = ({user, ...props}: UserPropsType) => {
 
-    return <div>
-                <span>
-                    <div>
-                       <NavLink to={'/profile/' + user.id}>
-                        <img src={user.photos.small != null ? user.photos.small : userPhoto}
-                             className={styles.userPhoto}/>
-                       </NavLink>
-                    </div>
-                    <div>
-                        {user.followed
-                            ? <button disabled={props.followingInProgressIDs.some(id => id === user.id)}
-                                      onClick={() => {
-                                          props.unfollow(user.id)
-                                      }}>Unfollow</button>
-                            : <button disabled={props.followingInProgressIDs.some(id => id === user.id)}
-                                      onClick={() => {
-                                          props.follow(user.id)
-                                      }}>Follow</button>}
-                    </div>
-                </span>
-        <span>
-                    <span>
-                        <div>{user.name}</div>
-                        <div>{user.status}</div>
-                    </span>
-                    <span>
-                        <div>{"user.location.country"}</div>
-                        <div>{"user.location.city"}</div>
-                    </span>
-                </span>
+    return <div className={`${cs.container} ${s.userContainer}`}>
+
+
+        <div className={s.imgContainer}>
+            <NavLink to={'/profile/' + user.id}>
+                <img src={user.photos.small != null ? user.photos.small : userPhoto}
+                     className={styles.userPhoto}/>
+            </NavLink>
+        </div>
+        <div className={s.descContainer}>
+            <div className={s.name}>{user.name}</div>
+            <div className={s.status}>{user.status}</div>
+        </div>
+        <div>
+            {user.followed
+                ? <button className={cs.button}
+                          disabled={props.followingInProgressIDs.some(id => id === user.id)}
+                          onClick={() => {
+                              props.unfollow(user.id)
+                          }}>Unfollow</button>
+                : <button className={cs.button}
+                          disabled={props.followingInProgressIDs.some(id => id === user.id)}
+                          onClick={() => {
+                              props.follow(user.id)
+                          }}>Follow</button>}
+        </div>
     </div>
 }

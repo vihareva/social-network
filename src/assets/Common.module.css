@@ -1,0 +1,20 @@
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px 1px #dcdade;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.button {
+    color: #ffffff;
+    background: #104f9e;
+    font-weight: 600;
+    border: 1px solid #104f9e;
+    border-radius: 12px;
+    padding: 10px 15px;
+    font-size: 17px;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
+    cursor: pointer;
+}

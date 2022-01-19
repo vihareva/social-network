@@ -1,3 +1,105 @@
-.descriptionBlock {
-    padding: 10px;
+
+.contactsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contactContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 205px;
+    height: 65px;
+}
+
+.iconContainer {
+    background-color: #104f9e;
+    color: white;
+    border-radius: 100px;
+    padding: 2px;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact {
+    color: #4c4c4c;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.contactDescContainer {
+    margin-left: 10px;
+}
+
+.contactValue {
+    color: #6d6b6b;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.editButton {
+    border-radius: 100px;
+    padding: 2px;
+    height: 55px;
+    width: 55px;
+}
+
+.userPhoto {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+}
+
+.name {
+    color: #4c4c4c;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 19px;
+
+}
+
+.mainProfileDescContainer {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.jobDescContainer {
+    width: 52%;
+}
+
+.mainBlock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.textHeader {
+    color: #104f9e;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 22px;
+}
+
+.desc {
+    color: #4c4c4c;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
 }

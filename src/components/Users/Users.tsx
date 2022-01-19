@@ -73,6 +73,7 @@ import React from 'react';
 import {UserType} from "../../redux/users-reducer";
 import {Paginator} from "../common/Paginator";
 import {User} from "./User";
+import styles from './Users.module.css';
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -92,12 +93,15 @@ let Users = (props: UsersPropsType) => {
         <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                    currentPage={props.currentPage} onPageChanged={props.onPageChanged}
                    portionSize={5}/>
-        {props.users.map(u => <User key={u.id}
-                                    user={u}
-                                    follow={props.follow}
-                                    followingInProgressIDs={props.followingInProgressIDs}
-                                    toggleFollowingProgress={props.toggleFollowingProgress}
-                                    unfollow={props.unfollow}/>)}
+        <div className={styles.usersContainer}>
+            {props.users.map(u => <User key={u.id}
+                                        user={u}
+                                        follow={props.follow}
+                                        followingInProgressIDs={props.followingInProgressIDs}
+                                        toggleFollowingProgress={props.toggleFollowingProgress}
+                                        unfollow={props.unfollow}/>)}
+        </div>
+
     </div>
 }
 

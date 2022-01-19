@@ -1,0 +1,23 @@
+.item {
+    color: #6d6b6b;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 2.8rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.icon {
+    height: 30px;
+    width: 46px;
+}
+
+.navlinkCont {
+    margin-left: 10px;
+}
+
+.activeLink {
+    color: #104f9e;
+    font-weight: 700;
+}

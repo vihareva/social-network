@@ -1,5 +1,11 @@
 import styles from './Paginator.module.css';
 import React, {useEffect, useState} from "react";
+import cs from "../../assets/Common.module.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
+
 
 type PaginatorPropsType = {
     portionSize: number
@@ -29,15 +35,22 @@ export let Paginator = (props: PaginatorPropsType) => {
     let firstPortionElement = (portionNumber - 1) * props.portionSize + 1;
     let lastPortionElement = portionNumber * props.portionSize;
 
-    return <div>
-        {portionNumber > 1 && <button onClick={() => setPortionNumber(portionNumber - 1)}>prev</button>}
-        {pages.map(p => {
-            if (p >= firstPortionElement && p <= lastPortionElement)
-                return <span className={props.currentPage === p ? `${styles.page} ${styles.selectedPage}` : styles.page}
-                             onClick={() => {
-                                 props.onPageChanged(p);
-                             }}>{p}</span>
-        })}
-        {portionNumber < portionCount && <button onClick={() => setPortionNumber(portionNumber + 1)}>next</button>}
+    return <div className={styles.paginatorCont}>
+        <div className={` ${cs.container} ${styles.pagesContainer} ` }>
+            {portionNumber > 1 && <span className={styles.button} onClick={() => setPortionNumber(portionNumber - 1)}>
+            <FontAwesomeIcon icon={faChevronLeft}/>
+        </span>}
+            {pages.map(p => {
+                if (p >= firstPortionElement && p <= lastPortionElement)
+                    return <span className={props.currentPage === p ? `${styles.page} ${styles.selectedPage}` : styles.page}
+                                 onClick={() => {
+                                     props.onPageChanged(p);
+                                 }}>{p}</span>
+            })}
+            {portionNumber < portionCount
+            && <span className={styles.button} onClick={() => setPortionNumber(portionNumber + 1)}>
+          <FontAwesomeIcon icon={faChevronRight}/>
+        </span>}
+        </div>
     </div>
 }

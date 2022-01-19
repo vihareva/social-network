@@ -1,9 +1,13 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {getUserStatus, updateUserStatus} from "../../../../redux/profile-reducer";
+import s from "../ProfileInfo.module.css";
+import {faPenNib} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 type StatusType = {
     status: string
+    isOwner: boolean
 }
 
 export const ProfileStatus = (props: StatusType) => {
@@ -24,16 +28,21 @@ export const ProfileStatus = (props: StatusType) => {
         setEditMode(false)
         dispatch(updateUserStatus(status))
     }
+    const deactivateViewMode = () => {
+        props.isOwner && setEditMode(true)
+    }
 
-    return <>
-        status :
-        {editMode
-            ? <div>
-                <input onChange={onChange} autoFocus value={status} onBlur={activateViewMode}/>
-            </div>
-            : <div>
-                <span onDoubleClick={() => setEditMode(true)}>{status}</span>
-            </div>
-        }
-    </>
+    return <div>
+        <span className={s.textHeader}>status :</span>
+        {editMode &&  <span className={s.desc}>
+                <input onChange={onChange} autoFocus value={status}
+                       onBlur={activateViewMode}/>
+            </span>}
+        {!editMode && <span onDoubleClick={deactivateViewMode } className={s.desc}>
+            {props.isOwner &&<span> <FontAwesomeIcon size={"1x"} icon={faPenNib}/>... </span>}
+            <span>{status}</span>
+            </span>}
+
+
+    </div>
 }

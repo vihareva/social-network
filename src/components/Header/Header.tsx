@@ -2,18 +2,21 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Header.module.css';
 import {HeaderContainerType} from "./HeaderContainer";
+import cs from "../../assets/Common.module.css";
 
 
 const Header = (props: HeaderContainerType) => {
     return <header className={s.header}>
-        {/*<img src='https://www.freelogodesign.org/Content/img/logo-ex-7.png' />*/}
+
         <div>
             {props.isAuth ?
-                <div>
-                    {props.login}
-                    <button onClick={props.logout}> log out</button>
+                <div className={s.cont}>
+                   <div  className={s.login}>{props.login}</div>
+                   <div>
+                       <button className={`${s.button} ${cs.button}`} onClick={props.logout}> log out</button>
+                   </div>
                 </div>
-                : <NavLink to={'/login'}>Login</NavLink>}
+                : <NavLink className={`${s.button} ${cs.button}`}  to={'/login'}>Login</NavLink>}
         </div>
     </header>
 }

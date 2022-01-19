@@ -1,14 +1,19 @@
 .nav {
     grid-area: n;
-    background-color: burlywood;
+    background-color: #F9FBFC;
     padding: 20px;
 }
 
-.item a {
-    color: white;
-    text-decoration: none;
+.photo {
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-position: center;
 }
 
-.activeLink {
-    color: gold;
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

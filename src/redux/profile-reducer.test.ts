@@ -1,4 +1,4 @@
-import {addPostActionCreator, deletePost, profileReducer} from "./profile-reducer";
+import {addPostActionCreator, deletePost, profileReducer, ProfileType} from "./profile-reducer";
 
 let state = {
     messageForNewPost: '',
@@ -7,7 +7,7 @@ let state = {
         {id: 2, message: 'It\'s my first post', likesCount: 11,},
         {id: 3, message: 'I am so fine today', likesCount: 11,}
     ],
-    profile: null,
+    profile: {} as ProfileType,
     status: ''
 }
 

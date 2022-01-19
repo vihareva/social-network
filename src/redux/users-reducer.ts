@@ -5,7 +5,7 @@ import {AppStateType} from "./redux-store";
 
 let initialState = {
     users: [],
-    pageSize: 10,
+    pageSize: 12,
     totalUsersCount: 0,
     currentPageNumber: 1,
     isFetching: true,

@@ -20,7 +20,6 @@ const Profile = (props: ProfilePropsType) => {
                          updatePhoto={props.updatePhoto}
                          userId={props.userId}
             />
-            <MyPostsContainer/>
         </div>
     )
 }
