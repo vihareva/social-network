@@ -9,6 +9,7 @@ export type postDataType = {
     id: number
     message: string
     likesCount: number
+    date: string
 }
 
 export type profilePageType = {
@@ -43,6 +44,7 @@ export type ContactsType = {
 type AddPostActionType = {
     type: "ADD-POST",
     postMessage: string
+    date: string
 }
 type UpdateNewPostTextActionType = {
     type: "UPDATE-NEW-POST-TEXT"
@@ -63,9 +65,9 @@ export type ProfileActionType = AddPostActionType
 let initialState = {
     messageForNewPost: '',
     postData: [
-        {id: 1, message: 'Hi, how are you?', likesCount: 12},
-        {id: 2, message: 'It\'s my first post', likesCount: 11,},
-        {id: 3, message: 'I am so fine today', likesCount: 11,}
+        {id: 1, message: 'Hi, how are you?', likesCount: 12, date: '18.06.2021 at 18:25 '},
+        {id: 2, message: 'It\'s my first post', likesCount: 11, date: '04.05.2021 at 21:50'},
+        {id: 3, message: 'I am so fine today', likesCount: 11, date: '28.07.2021 at 04:17'}
     ],
     profile: {} as ProfileType,
     status: ''
@@ -77,7 +79,7 @@ export const profileReducer = (state: profilePageType = initialState, action: Pr
             return {
                 ...state,
                 postData: [
-                    {id: 4, message: action.postMessage, likesCount: 0},
+                    {id: 4, message: action.postMessage, likesCount: 0, date: action.date},
                     ...state.postData
                 ],
                 messageForNewPost: ''
@@ -110,8 +112,8 @@ export const profileReducer = (state: profilePageType = initialState, action: Pr
     }
 }
 
-export let addPostActionCreator = (postMessage: string): AddPostActionType => {
-    return {type: "ADD-POST", postMessage: postMessage}
+export let addPostActionCreator = (postMessage: string, date: string): AddPostActionType => {
+    return {type: "ADD-POST", postMessage, date}
 }
 export let deletePost = (id: number) => {
     return {type: "DELETE-POST", id} as const

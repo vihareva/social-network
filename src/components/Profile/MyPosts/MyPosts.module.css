@@ -5,3 +5,27 @@
 .posts {
     margin-top: 10px;
 }
+.header{
+    color: #104f9e;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 22px;
+
+}
+.addPostContainer{
+    min-width: 60%;
+}
+.textarea{
+    resize: none;
+    outline: none;
+    height: 30px;
+    margin-top: 10px;
+    width: 100%;
+}
+.textarea:focus{
+    height: 60px;
+}
+.addButton{
+    margin-bottom: 0px;
+    margin-top: 10px;
+}

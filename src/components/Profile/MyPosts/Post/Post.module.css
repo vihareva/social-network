@@ -1,9 +1,37 @@
+
+.container{
+
+}
 .item {
-    color: #4c4c4c;
+    color:#4c4c4c;;
+    word-wrap: break-word;
+    font-weight: 500;
 }
 
 .item img {
     width: 50px;
     height: 50px;
     border-radius: 30px;
+}
+.userPhoto{
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+}
+.descContainer{
+    display:flex ;
+
+}
+.name{
+    font-weight: 700;
+    font-size: 18px;
+    color:#104f9e;
+    margin-left: 15px;
+}
+.date{
+    font-size: 15px;
+    margin-top: 5px;
+    color:#6d6b6b;
+    font-weight: 400;
+    margin-left: 15px;
 }

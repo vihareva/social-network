@@ -18,3 +18,16 @@
     margin-bottom: 20px;
     cursor: pointer;
 }
+
+.input {
+    border: 0;
+    margin: 0;
+    color: #4c4c4c;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    border-bottom: 2px solid #104f9e;
+}
+.input:hover, .input:focus{
+    outline: none;
+}

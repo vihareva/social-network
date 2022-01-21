@@ -4,7 +4,7 @@ import {getUserStatus, updateUserStatus} from "../../../../redux/profile-reducer
 import s from "../ProfileInfo.module.css";
 import {faPenNib} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
+import cs from '../../../../assets/Common.module.css'
 type StatusType = {
     status: string
     isOwner: boolean
@@ -34,10 +34,9 @@ export const ProfileStatus = (props: StatusType) => {
 
     return <div>
         <span className={s.textHeader}>status :</span>
-        {editMode &&  <span className={s.desc}>
-                <input onChange={onChange} autoFocus value={status}
-                       onBlur={activateViewMode}/>
-            </span>}
+        {editMode && <input className={cs.input} onChange={onChange} autoFocus value={status}
+                       onBlur={activateViewMode}/>}
+
         {!editMode && <span onDoubleClick={deactivateViewMode } className={s.desc}>
             {props.isOwner &&<span> <FontAwesomeIcon size={"1x"} icon={faPenNib}/>... </span>}
             <span>{status}</span>

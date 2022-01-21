@@ -65,25 +65,27 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>
                     <div className={s.mainBlock}>
                         <div className={`${cs.container} ${s.mainProfileDescContainer}`}>
-                            <div>
+                            <div className={s.flex}>
                                 <div>
-                                    <img className={s.userPhoto}
-                                         src={props.profile.photos.large ? props.profile.photos.large : userPhoto}/>
+                                    <div>
+                                        <img className={s.userPhoto}
+                                             src={props.profile.photos.large ? props.profile.photos.large : userPhoto}/>
+                                    </div>
                                 </div>
-                                <div className={s.name}> {props.profile.fullName}</div>
+                                <div>
+                                    {props.isOwner && <div>
+                                        <input style={{display: 'none'}} ref={fileInput} type="file"
+                                               onChange={selectPhoto}/>
+                                        <button className={`${cs.button} ${s.editButton}`}
+                                                onClick={() => fileInput.current.click()}>
+                                            <FontAwesomeIcon size={"lg"} icon={faImages}/>
+                                        </button>
+                                    </div>}
+                                </div>
                             </div>
-                            <div>
-                                {props.isOwner && <div>
-                                    <input style={{display: 'none'}} ref={fileInput} type="file"
-                                           onChange={selectPhoto}/>
-                                    <button className={`${cs.button} ${s.editButton}`}
-                                            onClick={() => fileInput.current.click()}>
-                                        <FontAwesomeIcon size={"lg"} icon={faImages}/>
-                                    </button>
-                                </div>}
-                            </div>
-
-
+                            {props.isOwner
+                                ? <div className={s.name}> {props.profile.fullName}</div>
+                                : <div style={{textAlign: 'center'}} className={s.name}> {props.profile.fullName}</div>}
                         </div>
                         <div className={`${cs.container} ${s.jobDescContainer}`}>
 

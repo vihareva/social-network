@@ -9,7 +9,7 @@ type mapStateToPropsType={
     profilePage: profilePageType
 }
 type mapDispatchToPropsType={
-    addPost: (postMessage: string) =>void
+    addPost: (postMessage: string ,date: string) =>void
     updateNewPostText: (body:string) =>void
 }
 
@@ -25,8 +25,8 @@ const mapDispatchToProps = (dispatch:Dispatch) :mapDispatchToPropsType=> {
             let action = updateNewPostTextActionCreator(text);
             dispatch(action);
         },
-        addPost: (postMessage) => {
-            dispatch(addPostActionCreator(postMessage));
+        addPost: (postMessage, date) => {
+            dispatch(addPostActionCreator(postMessage, date));
         }
     }
 }

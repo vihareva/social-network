@@ -4,15 +4,19 @@ import Post from './Post/Post';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import {PostsPropsType} from "./MyPostsContainer";
 import img from '../../../assets/zzzz.jpg'
+import cs from "../../../assets/Common.module.css";
 
 const MyPosts = (props: PostsPropsType) => {
 
-    let postElements = props.profilePage.postData.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+    let postElements = props.profilePage.postData.map(p => <Post profile={props.profilePage.profile} date= {p.date} message={p.message} likesCount={p.likesCount}/>)
     //вернет массив jsx элементов [<Post.../>, <Post.../>]
 
     const addPost = () => {
-        props.addPost(props.profilePage.messageForNewPost)
-
+        let date=new Date()
+        let stringDay=date.getDay()+ '.'+date.getMonth()+ '.'+date.getFullYear()
+        let stringTime=date.getHours()+ ':'+ date.getMinutes()
+        let stringDate=stringDay+ ' at '+stringTime
+        props.addPost(props.profilePage.messageForNewPost, stringDate)
     }
     // <button onClick={addPost} : кнопке  отдаем ссылку на функцию которая при клике запустится
     //onClick={()=>{addPost()}} то же самое
@@ -23,17 +27,21 @@ const MyPosts = (props: PostsPropsType) => {
 
     return (
         <div className={s.postsBlock}>
-            <img src={img}/>
+            {/*<img src={img}/>*/}
 
             <div>
-                <h3>My posts</h3>
-                <div>
-                    <textarea value={props.profilePage.messageForNewPost}
+
+                <div className={`${cs.container} ${s.addPostContainer}`}>
+                    <div className={s.header}>My posts</div>
+                    <textarea className={`${cs.input} ${s.textarea}`}
+                              placeholder="What's new?"
+                              value={props.profilePage.messageForNewPost}
                               onChange={newTextChangeHandler}/>
+                    <div>
+                        <button className={`${cs.button} ${s.addButton}`} onClick={addPost}>Add post</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={addPost}>Add post</button>
-                </div>
+
                 <div className={s.posts}>
                     {postElements}
                 </div>

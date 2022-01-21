@@ -10,7 +10,7 @@
 .contactContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     width: 205px;
     height: 65px;
@@ -55,6 +55,7 @@ a {
     padding: 2px;
     height: 55px;
     width: 55px;
+    margin-bottom: 0px;
 }
 
 .userPhoto {
@@ -73,10 +74,12 @@ a {
 
 .mainProfileDescContainer {
     width: 30%;
+
+}
+.flex{
     display: flex;
     justify-content: center;
 }
-
 .jobDescContainer {
     width: 52%;
 }
@@ -100,6 +103,7 @@ a {
 }
 
 .buttonContainer {
+    margin-top: 5px;
     display: flex;
     justify-content: flex-end;
 }
