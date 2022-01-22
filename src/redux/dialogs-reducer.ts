@@ -1,78 +1,82 @@
-// import {actionTypes, messagesPageType} from "./state";
+import {v1} from "uuid";
 
 export type DialogsDataType = {
-    id: number
+    id: string
     name: string
 }
 
 export type MessagesDataType = {
-    id: number
+    id: string
     message: string
 }
 
 export type messagesPageType = {
     dialogsData: Array<DialogsDataType>
-    messagesData: Array<MessagesDataType>
-    newMessageText: string
+    messagesData: { [key: string]: Array<MessagesDataType> }
 }
+let id1=v1();
+let id2=v1();
+let id3=v1();
 
 let initialState = {
     dialogsData: [
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Andrew'},
-        {id: 3, name: 'Sveta'},
-        {id: 4, name: 'Sasha'},
-        {id: 5, name: 'Viktor'},
-        {id: 6, name: 'Valera'}
+        {id: id1, name: 'Dimych'},
+        {id: id2, name: 'Andrew'},
+        {id: id3, name: 'Sveta'},
+        // {id: v1(), name: 'Sasha'},
+        // {id: v1(), name: 'Viktor'},
+        // {id: v1(), name: 'Valera'}
     ],
-    messagesData: [
-        {id: 1, message: 'Hi'},
-        {id: 2, message: 'How is your it-kamasutra?'},
-        {id: 3, message: 'Yo'},
-        {id: 4, message: 'Yo'},
-        {id: 5, message: 'Yo'},
-        {id: 6, message: 'Hi'},
-    ],
-    newMessageText: ''
+    messagesData: {
+        [id1]: [
+            {id: v1(), message: 'Hi'},
+            {id: v1(), message: 'How is your it-kamasutra?'},
+            {id: v1(), message: 'Yo'},
+            {id: v1(), message: 'Yo'},
+            {id: v1(), message: 'Yo'},
+            {id: v1(), message: 'Hgfdgdsfgsgsdfi'},
+        ],
+        [id2]: [
+            {id: v1(), message: 'Hi'},
+            {id: v1(), message: 'How is your it-kamasutra?'},
+            {id: v1(), message: 'Ysdfsdfsdo'},
+            {id: v1(), message: 'Yo'},
+            {id: v1(), message: 'Yo'},
+            {id: v1(), message: 'Hi'},
+        ],
+        [id3]: [
+            {id: v1(), message: 'Hi'},
+            {id: v1(), message: 'How is your it-kamasutra?'},
+            {id: v1(), message: 'Yo'},
+            {id: v1(), message: 'Yhhhhhhhhhhhho'},
+            {id: v1(), message: 'Yo'},
+            {id: v1(), message: 'Hi'},
+        ],
+
+    }
 }
 
-type  UpdateNewMessageTextActionType = {
-    type: "UPDATE-NEW-MESSAGE-TEXT"
-    newMessageText: string
-}
-type SendMessageActionType = {
-    type: "SEND-MESSAGE"
-}
-export type DialogsActionType = UpdateNewMessageTextActionType | SendMessageActionType
+
+export type DialogsActionType =  SendMessageActionType
 
 export const dialogsReducer = (state: messagesPageType = initialState, action: DialogsActionType): messagesPageType => {
     switch (action.type) {
-        case "UPDATE-NEW-MESSAGE-TEXT":
-            // state.newMessageText = action.newMessageText;
-            // return state;
-            return {...state, newMessageText: action.newMessageText}
         case 'SEND-MESSAGE':
-            // let newMessage = state.newMessageText;
-            // state.messagesData.push({id: 8, message: newMessage});
-            // state.newMessageText = '';
-            // return state;
-            return {
+            return  {
                 ...state,
-                messagesData: [
+                messagesData: {
                     ...state.messagesData,
-                    {id: 8, message: state.newMessageText},
-                ],
-                newMessageText: ''
+                    [action.userId]: [...state.messagesData[action.userId], {id: v1(), message: action.message}]
+                }
             }
+
         default:
             return state;
     }
 
 }
-export let updateNewMessageTextActionCreator = (text: string): UpdateNewMessageTextActionType => {
-    return {type: "UPDATE-NEW-MESSAGE-TEXT", newMessageText: text}
-}
 
-export let sendMessageActionCreator = (): SendMessageActionType => {
-    return {type: "SEND-MESSAGE"}
+export let sendMessageActionCreator = (message: string, userId: string) => {
+    return {type: "SEND-MESSAGE", message, userId} as const
 }
+type SendMessageActionType=ReturnType<typeof sendMessageActionCreator>

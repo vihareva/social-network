@@ -1,10 +1,8 @@
 import React from 'react';
-import preloader from "../../assets/svg_transp.png";
+import preloader from "../../assets/preloader.png";
 
 let Preloader = () => {
-    return <div  style={ { backgroundColor: 'white' } }>
-        <img src={preloader} />
-    </div>
+    return <img style={ { display: 'block', margin: '0 auto' }} src={preloader} />
 }
 
 export default Preloader;

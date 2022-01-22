@@ -6,7 +6,6 @@ import {compose, Dispatch} from "redux";
 import {
     messagesPageType,
     sendMessageActionCreator,
-    updateNewMessageTextActionCreator
 } from "../../redux/dialogs-reducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
@@ -15,8 +14,7 @@ type mapStateToPropsType={
 
 }
 type mapDispatchToPropsType={
-    sendMessage: () =>void
-    updateNewMessageBody: (body:string) =>void
+    sendMessage: (message: string, userId: string) =>void
 }
 export type DialogsPropsType=mapStateToPropsType&mapDispatchToPropsType
 
@@ -27,11 +25,8 @@ let mapStateToProps = (state: AppStateType):mapStateToPropsType => {
 }
 let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType => {
     return {
-        sendMessage: () => {
-            dispatch(sendMessageActionCreator());
-        },
-        updateNewMessageBody: (body) => {
-            dispatch(updateNewMessageTextActionCreator(body));
+        sendMessage: (message: string, userId: string) => {
+            dispatch(sendMessageActionCreator(message,userId));
         }
     }
 }
