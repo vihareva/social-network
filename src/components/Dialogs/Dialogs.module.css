@@ -1,14 +1,43 @@
-.dialogs {
-    display: grid;
-    grid-template-columns: 2fr 7fr 5fr;
+.usersContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.userPhoto{
+    border-radius: 100px;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
 }
 
-.dialogsItems {
-    padding: 10px;
+.userContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.addMessageContainer{
+    min-width: 60%;
+    display: flex;
+    justify-content: center;
+}
+.name{
+    font-weight: 500;
+    color:#6d6b6b;
+}
+.textarea{
+    resize: none;
+    outline: none;
+    height: 30px;
+    margin-top: 10px;
+    width: 60%;
+}
+.textarea:focus{
+    height: 60px;
 }
 
-.dialogsItems .active {
-    color: gold;
+.active{
+    font-weight: 700;
+    color:#4c4c4c;
 }
 
 .messages {
@@ -16,4 +45,5 @@
 }
 .button{
     margin-top: 10px;
+    margin-left: 10px;
 }

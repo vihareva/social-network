@@ -4,47 +4,55 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
 import cs from "../../assets/Common.module.css";
-import img from '../../assets/zzzz.jpg'
+import userPhoto from '../../assets/userPhoto.jpg'
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 
 const Dialogs = (props: DialogsPropsType) => {
     let id = useSelector<AppStateType, string>(st => st.dialogsPage.dialogsData[0].id)
 
-    let [userId, setUserId] = useState(id)
+    let [activeUserId, setActiveUserId] = useState(id)
     let [message, setMessage] = useState('')
 
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.currentTarget.value)
     }
     const changeUser = (id: string) => {
-        setUserId(id)
+        setActiveUserId(id)
     }
 
     const sendMessage = () => {
-        props.sendMessage(message, userId)
+        props.sendMessage(message, activeUserId)
         setMessage('')
     }
     return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
-                {props.dialogsPage.dialogsData.map(d => <DialogItem changeUser={changeUser} name={d.name} id={d.id}/>)}
+        <div>
+            <div className={`${cs.container} ${s.usersContainer}`}>
+                {props.dialogsPage.dialogsData.map(d => <DialogItem activeUserId={activeUserId} changeUser={changeUser}
+                                                                    name={d.name} id={d.id}/>)}
             </div>
 
             <div className={s.messages}>
-                <div>{props.dialogsPage.messagesData[userId]
-                    .map(m => <Message userId={userId} message={m.message}/>)}
+                <div>{props.dialogsPage.messagesData[activeUserId]
+                    .map(m => <Message userId={activeUserId} message={m.message}/>)}
                 </div>
-                <div>
-                    <div>
-                   <textarea value={message}
-                             placeholder='enter your message'
-                             onChange={newTextChangeHandler}>
-               </textarea>
-                    </div>
+                {/*<div className={`${cs.container} ${s.addPostContainer}`}>*/}
+                {/*    <div className={s.header}>My posts</div>*/}
+                {/*    <textarea className={`${cs.input} ${cs.textarea}`}*/}
+                {/*              placeholder="What's new?"*/}
+                {/*              value={props.profilePage.messageForNewPost}*/}
+                {/*              onChange={newTextChangeHandler}/>*/}
+                {/*    <div>*/}
+                {/*        <button className={`${cs.button} ${s.addButton}`} onClick={addPost}>Add post</button>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                <div className={`${cs.container} ${s.addMessageContainer}`}>
+                   <textarea className={`${cs.input} ${s.textarea}`} value={message}
+                             placeholder='Enter your message'
+                             onChange={newTextChangeHandler}/>
                     <div>
                         <button className={`${s.button} ${cs.button}`}
-                                onClick={sendMessage}> send
+                                onClick={sendMessage}> Send
                         </button>
                     </div>
                 </div>

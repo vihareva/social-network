@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './../Dialogs.module.css';
+import cs from "../../../assets/Common.module.css";
 
 
 
@@ -8,7 +9,7 @@ type MessageType={
     userId: string
 }
 const Message = (props:MessageType ) => {
-    return <div className={s.dialog}>{props.message}</div>
+    return <div className={`${cs.container} ${s.messageContainer}`}>{props.message}</div>
 }
 
 
