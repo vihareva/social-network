@@ -2,6 +2,7 @@
     grid-area: n;
     background-color: #F9FBFC;
     padding: 20px;
+    border-radius: 0 0 0 20px;
 }
 
 .photo {

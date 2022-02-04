@@ -7,16 +7,17 @@ import cs from "../../assets/Common.module.css";
 
 const Header = (props: HeaderContainerType) => {
     return <header className={s.header}>
-
         <div>
+            <div className={s.cont}>
             {props.isAuth ?
-                <div className={s.cont}>
-                   <div  className={s.login}>{props.login}</div>
-                   <div>
-                       <button className={`${s.button} ${cs.button}`} onClick={props.logout}> log out</button>
-                   </div>
-                </div>
+                   <>
+                       <div  className={s.login}>{props.login}</div>
+                       <div>
+                           <button className={`${s.button} ${cs.button}`} onClick={props.logout}> log out</button>
+                       </div>
+                   </>
                 : <NavLink className={`${s.button} ${cs.button}`}  to={'/login'}>Login</NavLink>}
+            </div>
         </div>
     </header>
 }

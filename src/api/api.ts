@@ -1,15 +1,13 @@
-import axios, {AxiosResponse} from "axios";
-import {FormDataType} from "../components/Login/Login";
+import axios from "axios";
+
 import {ProfileDescriptionFormDataType} from "../components/Profile/ProfileInfo/ProfileDescriptionForm";
 
-
-const baseURL = `https://social-network.samuraijs.com/api/1.0/`
 
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        "API-KEY": "b2cbf0c8-a18f-4c4c-a855-cbb200160c11"
+        "API-KEY": "6e9ab0a0-db04-48d5-b17f-32168bf67567"
     }
 });
 

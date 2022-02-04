@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {getUserStatus, updateUserStatus} from "../../../../redux/profile-reducer";
+import {updateUserStatus} from "../../../../redux/profile-reducer";
 import s from "../ProfileInfo.module.css";
 import {faPenNib} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -39,9 +39,7 @@ export const ProfileStatus = (props: StatusType) => {
 
         {!editMode && <span onDoubleClick={deactivateViewMode } className={s.desc}>
             {props.isOwner &&<span> <FontAwesomeIcon size={"1x"} icon={faPenNib}/>... </span>}
-            <span>{status}</span>
+            <span>{status ? status: 'no status'}</span>
             </span>}
-
-
     </div>
 }

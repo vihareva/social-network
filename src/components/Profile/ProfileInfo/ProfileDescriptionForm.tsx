@@ -1,8 +1,18 @@
 import {ContactsType, ProfileType, updateProfileDescription} from "../../../redux/profile-reducer";
 import {useDispatch} from "react-redux";
 import {useForm} from "react-hook-form";
-import {Button, Checkbox, FormControlLabel, FormGroup, Grid, TextField} from "@mui/material";
+import {
+    Checkbox,
+    createTheme,
+    FormControlLabel,
+    FormGroup,
+    TextField,
+    ThemeProvider
+} from "@mui/material";
 import React from "react";
+import cs from "../../../assets/Common.module.css";
+import CircleUnchecked from "@mui/icons-material/RadioButtonUnchecked";
+import CircleCheckedFilled from "@mui/icons-material/CheckCircle";
 
 
 export type ProfileDescriptionFormDataType = {
@@ -32,49 +42,68 @@ export const ProfileDescriptionForm = ({profile, userId, ...props}: ProfileDescr
         },
         mode: 'onBlur'
     });
-
+    const theme = createTheme({
+        typography: {
+            fontFamily: `"Montserrat",  sans-serif`,
+            fontWeightRegular: 500,
+        },
+        palette: {
+            primary: {
+                main: '#104f9e'
+            }
+        }
+    })
     const onSubmit = (data: ProfileDescriptionFormDataType) => {
         dispatch(updateProfileDescription(data, userId));
         props.switchOffEditMode()
     }
-    return <>
-        <Grid container justifyContent={'center'}>
-            <Grid item justifyContent={'center'}>
+    return   <ThemeProvider theme={theme}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormGroup>
                         <FormControlLabel label={'lookingForAJob'} control={
-                            <Checkbox    {...register('lookingForAJob')}
+                            <Checkbox   icon={<CircleUnchecked/>}
+                                        checkedIcon={<CircleCheckedFilled/>}
+                                        sx={{
+                                            color: "#104f9e",
+                                            '&.Mui-checked': {
+                                                color: "#104f9e",
+                                            },
+                                            borderRadius: '50%',
+                                        }}    {...register('lookingForAJob')}
                             />}
                         />
                         <TextField label="lookingForAJobDescription"
-                                   margin="normal"
+                                   margin="normal" variant="standard"
                                    {...register('lookingForAJobDescription')}
                         />
                         <TextField label="fullName"
-                                   margin="normal"
+                                   margin="normal" variant="standard"
                                    {...register('fullName')}
                         />
 
                         <TextField label="aboutMe"
-                                   margin="normal"
+                                   margin="normal" variant="standard"
                                    {...register('aboutMe')}
                         />
 
                         {Object.keys(profile.contacts).map(contact => {
                             const contactName = 'contacts.' + contact as "contacts.github" | "contacts.vk" | "contacts.facebook" | "contacts.instagram" | "contacts.twitter" | "contacts.website" | "contacts.youtube" | "contacts.mainLink"
                             return <TextField label={contact}
-                                              margin="normal"
+                                              margin="normal" variant="standard"
                                               {...register(contactName)}
                             />
                         })}
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>
-                            edit
-                        </Button>
+                        {/*<Button type={'submit'} variant={'contained'} color={'primary'}>*/}
+                        {/*    edit*/}
+                        {/*</Button>*/}
+                        <div style={{display:"flex", justifyContent:"flex-start"}}>
+                            <button type={'submit'} className={`${cs.button}`}>
+                                Edit
+                            </button>
+                        </div>
+
                     </FormGroup>
                 </form>
-            </Grid>
-        </Grid>
-    </>
 
-
+    </ThemeProvider>
 }
