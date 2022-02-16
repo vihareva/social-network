@@ -1,4 +1,3 @@
-// import {actionTypes, profilePageType} from "./state";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 

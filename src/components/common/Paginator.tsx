@@ -4,6 +4,7 @@ import cs from "../../assets/Common.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import {v1} from "uuid";
 
 
 
@@ -15,7 +16,7 @@ type PaginatorPropsType = {
     onPageChanged: (pageNumber: number) => void
 }
 
-export let Paginator = (props: PaginatorPropsType) => {
+export let Paginator = React.memo((props: PaginatorPropsType) => {
     let pagesCount = Math.ceil(props.totalItemsCount / props.pageSize);
 
     let [portionNumber, setPortionNumber] = useState(1)
@@ -23,7 +24,6 @@ export let Paginator = (props: PaginatorPropsType) => {
     useEffect(() => {
         props.onPageChanged(firstPortionElement);
     }, [portionNumber])
-
 
 
     let pages = [];
@@ -42,7 +42,8 @@ export let Paginator = (props: PaginatorPropsType) => {
         </span>}
             {pages.map(p => {
                 if (p >= firstPortionElement && p <= lastPortionElement)
-                    return <span className={props.currentPage === p ? `${styles.page} ${styles.selectedPage}` : styles.page}
+                    return <span
+                        className={props.currentPage === p ? `${styles.page} ${styles.selectedPage}` : styles.page}
                                  onClick={() => {
                                      props.onPageChanged(p);
                                  }}>{p}</span>
@@ -53,4 +54,4 @@ export let Paginator = (props: PaginatorPropsType) => {
         </span>}
         </div>
     </div>
-}
+})

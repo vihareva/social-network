@@ -11,14 +11,13 @@ export type authDataType = {
     captcha: string | null
 }
 
-let initialState = {
+let initialState:authDataType = {
     id: null,
     email: null,
     login: null,
     isAuth: false,
     captcha: null
 };
-
 
 const authReducer = (state: authDataType = initialState, action: AuthActionsType): authDataType => {
     switch (action.type) {

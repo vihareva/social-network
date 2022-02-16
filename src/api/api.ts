@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {ProfileDescriptionFormDataType} from "../components/Profile/ProfileInfo/ProfileDescriptionForm";
+import {FilterUsersDataType} from "../redux/users-reducer";
 
 
 const instance = axios.create({
@@ -13,8 +14,8 @@ const instance = axios.create({
 
 
 export const usersAPI = {
-    getUsers(currentPageNumber: number, pageSize: number) {
-        return instance.get<any>(`users?page=${currentPageNumber}&count=${pageSize}`)
+    getUsers(currentPageNumber: number, pageSize: number,filter:FilterUsersDataType) {
+        return instance.get<any>(`users?page=${currentPageNumber}&count=${pageSize}&term=${filter.term}&friend=${filter.friend}`)
             .then(response => response.data)
     },
     unfollow(userId: number) {
@@ -46,7 +47,7 @@ export const usersAPI = {
     },
     updateProfileDescription(data: ProfileDescriptionFormDataType) {
         return instance.put<any>(`/profile`, data)
-    }
+    },
 }
 export const authAPI = {
     me() {

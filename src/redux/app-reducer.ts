@@ -37,6 +37,5 @@ export const initializeApp=():AppThunk=>{
            Promise.all([promise]).then(()=>{
             dispatch(setIsInitializedAC())
         })
-
     }
 }
