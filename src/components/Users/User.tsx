@@ -17,8 +17,6 @@ type UserPropsType = {
 export let User = ({user, ...props}: UserPropsType) => {
 
     return <div className={`${cs.container} ${s.userContainer}`}>
-
-
         <div className={s.imgContainer}>
             <NavLink to={'/profile/' + user.id}>
                 <img src={user.photos.small != null ? user.photos.small : userPhoto}

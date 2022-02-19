@@ -1,4 +1,4 @@
-import {addPostActionCreator, deletePost, profileReducer, ProfileType} from "./profile-reducer";
+import {addPost, deletePost, profileReducer, ProfileType} from "./profile-reducer";
 
 let state = {
     messageForNewPost: '',
@@ -12,7 +12,7 @@ let state = {
 }
 
 test('message of added post should be correct',()=>{
-    let action=addPostActionCreator('hello')
+    let action=addPost('hello')
 
     let newState=profileReducer(state, action);
 
@@ -21,7 +21,7 @@ test('message of added post should be correct',()=>{
 
 
 test('length of postData should be correct',()=>{
-    let action=addPostActionCreator('hello')
+    let action=addPost('hello')
 
     let newState=profileReducer(state, action);
 

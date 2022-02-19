@@ -1,8 +1,17 @@
 import React from 'react';
-import preloader from "../../assets/preloader.png";
+import {createTheme, LinearProgress, ThemeProvider} from "@mui/material";
 
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#104f9e'
+        }
+    }
+})
 let Preloader = () => {
-    return <img style={ { display: 'block', margin: '0 auto' }} src={preloader} />
+    return <ThemeProvider theme={theme}>
+        <LinearProgress/>
+    </ThemeProvider>
 }
 
 export default Preloader;

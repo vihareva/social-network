@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .userPhoto{
     border-radius: 100px;
     width: 70px;
@@ -15,15 +16,18 @@
     flex-direction: column;
     align-items: center;
 }
+
 .addMessageContainer{
     min-width: 60%;
     display: flex;
     justify-content: center;
 }
+
 .name{
     font-weight: 500;
     color:#6d6b6b;
 }
+
 .textarea{
     resize: none;
     outline: none;
@@ -43,6 +47,7 @@
 .messages {
     padding: 10px;
 }
+
 .button{
     margin-top: 10px;
     margin-left: 10px;

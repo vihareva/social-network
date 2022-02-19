@@ -11,6 +11,11 @@ export type authDataType = {
     captcha: string | null
 }
 
+type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
+type setCaptchaUrlActionType = ReturnType<typeof setCaptchaUrl>
+
+export type AuthActionsType = SetAuthUserDataActionType | setCaptchaUrlActionType;
+
 let initialState:authDataType = {
     id: null,
     email: null,
@@ -39,7 +44,13 @@ export const setAuthUserData = (id: null | number, email: null | string, login: 
         data: {id, email, login, isAuth}
     } as const
 }
-type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
+export const setCaptchaUrl = (captcha: string) => {
+    return {
+        type: 'SET_CAPTCHA_URL',
+        data: {captcha}
+    } as const
+}
+
 export const getAuthUserData = () => (dispatch: Dispatch) => {
     return authAPI.me()
         .then(response => {
@@ -68,14 +79,6 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     }
 }
 
-export const setCaptchaUrl = (captcha: string) => {
-    return {
-        type: 'SET_CAPTCHA_URL',
-        data: {captcha}
-    } as const
-}
-type setCaptchaUrlActionType = ReturnType<typeof setCaptchaUrl>
-
 export const getCaptchaUrl = (): AppThunk => {
     return (dispatch) => {
         authAPI.getCaptchaUrl()
@@ -95,7 +98,5 @@ export const logout = (): AppThunk => {
             })
     }
 }
-
-export type AuthActionsType = SetAuthUserDataActionType | setCaptchaUrlActionType;
 
 export default authReducer;

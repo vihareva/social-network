@@ -15,11 +15,9 @@ type UsersPropsType = {
     unfollow: (userId: number) => void
     toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgressIDs: number[]
-    filter:FilterUsersDataType
-    onFilterForm:(filter: FilterUsersDataType) =>void
+    filter: FilterUsersDataType
+    onFilterForm: (filter: FilterUsersDataType) => void
 }
-
-
 
 let Users = React.memo((props: UsersPropsType) => {
 
@@ -27,16 +25,18 @@ let Users = React.memo((props: UsersPropsType) => {
         <FilterUsers filter={props.filter} onFilterForm={props.onFilterForm}/>
         <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                    currentPage={props.currentPage} onPageChanged={props.onPageChanged}
-                   portionSize={5}/>
-        <div className={styles.usersContainer}>
-            {props.users.map(u => <User key={u.id}
-                                        user={u}
-                                        follow={props.follow}
-                                        followingInProgressIDs={props.followingInProgressIDs}
-                                        toggleFollowingProgress={props.toggleFollowingProgress}
-                                        unfollow={props.unfollow}/>)}
-        </div>
+                   portionSize={5} items={props.users}/>
 
+        {props.users.length
+            ? <div className={styles.usersContainer}>
+                {props.users.map(u => <User key={u.id}
+                                            user={u}
+                                            follow={props.follow}
+                                            followingInProgressIDs={props.followingInProgressIDs}
+                                            toggleFollowingProgress={props.toggleFollowingProgress}
+                                            unfollow={props.unfollow}/>)}
+            </div>
+            : <div style={{display:"flex", justifyContent:"center"}}>Users not found</div>}
     </div>
 })
 

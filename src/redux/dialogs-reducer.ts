@@ -66,8 +66,7 @@ let initialState = {
         ],
     }
 }
-
-
+type SendMessageActionType = ReturnType<typeof sendMessageActionCreator>
 export type DialogsActionType = SendMessageActionType
 
 export const dialogsReducer = (state: messagesPageType = initialState, action: DialogsActionType): messagesPageType => {
@@ -90,4 +89,3 @@ export const dialogsReducer = (state: messagesPageType = initialState, action: D
 export let sendMessageActionCreator = (message: string, userId: string) => {
     return {type: "SEND-MESSAGE", message, userId} as const
 }
-type SendMessageActionType = ReturnType<typeof sendMessageActionCreator>

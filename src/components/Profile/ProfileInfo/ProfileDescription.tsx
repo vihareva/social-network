@@ -8,7 +8,6 @@ import React, {ChangeEvent, MutableRefObject, useRef} from "react";
 import {ProfileType} from "../../../redux/profile-reducer";
 import {useDispatch} from "react-redux";
 
-
 type ProfileDescriptionPropsType = {
     profile: ProfileType
     status: string
@@ -17,6 +16,7 @@ type ProfileDescriptionPropsType = {
     userId: number
     switchOnEditMode: () => void
 }
+
 export const ProfileDescription = (props: ProfileDescriptionPropsType) => {
 
     const dispatch = useDispatch()
@@ -71,4 +71,5 @@ export const ProfileDescription = (props: ProfileDescriptionPropsType) => {
                     </div>}
                 </div>
             </div>
+
 }

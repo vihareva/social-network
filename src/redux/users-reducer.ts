@@ -1,7 +1,6 @@
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, AppThunk} from "./redux-store";
+import {AppThunk} from "./redux-store";
 
 let initialState = {
     users: [],
@@ -165,7 +164,7 @@ export const follow = (userId: number) => {
         dispatch(toggleFollowingProgress(true, userId));
 
         let data = await usersAPI.follow(userId)
-        if (data.resultCode == 0) {
+        if (data.resultCode === 0) {
             dispatch(followUnfollow(userId, true));
         }
         dispatch(toggleFollowingProgress(false, userId));
@@ -178,7 +177,7 @@ export const unfollow = (userId: number) => {
         dispatch(toggleFollowingProgress(true, userId));
 
         let data = await usersAPI.unfollow(userId)
-        if (data.resultCode == 0) {
+        if (data.resultCode === 0) {
             dispatch(followUnfollow(userId, false));
         }
         dispatch(toggleFollowingProgress(false, userId));

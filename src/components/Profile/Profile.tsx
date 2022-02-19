@@ -1,15 +1,15 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfileType, updatePhoto} from "../../redux/profile-reducer";
+import {ProfileType} from "../../redux/profile-reducer";
 
 type ProfilePropsType = {
     profile: ProfileType
     status: string
     isOwner: boolean
     updatePhoto: (file: File) => void
-    userId: number,
+    userId: number
 }
+
 const Profile = (props: ProfilePropsType) => {
 
     return (
@@ -22,6 +22,7 @@ const Profile = (props: ProfilePropsType) => {
             />
         </div>
     )
+
 }
 
 export default Profile;

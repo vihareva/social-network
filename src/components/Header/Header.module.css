@@ -2,19 +2,20 @@
     grid-area: h;
     background-color: white;
     border-bottom: #6d6b6b;
-margin-bottom: 1px;
+    margin-bottom: 1px;
     padding: 20px;
     min-height: 100px;
     border-radius: 20px;
 }
 
-.cont{
+.cont {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
-.login{
+
+.login {
     color: #4c4c4c;
     text-decoration: none;
     font-size: 20px;
@@ -22,6 +23,7 @@ margin-bottom: 1px;
     display: flex;
     flex-direction: row;
 }
-.button{
+
+.button {
     margin-bottom: 0px;
 }

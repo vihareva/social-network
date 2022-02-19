@@ -1,44 +1,3 @@
-// import React from 'react';
-// import Users from "./Users";
-// import {connect} from "react-redux";
-// import {follow, usersStateType, setUsers, unfollow, UserType} from "../../redux/Users-reducer";
-// import {AppStateType} from "../../redux/redux-store";
-// import {Dispatch} from "redux";
-//
-// type mapStateToPropsType={
-//     usersPage: usersStateType
-// }
-//
-// type mapDispatchToPropsType={
-//     follow: (userId: number) =>void
-//     unfollow: (userId: number) => void
-//     setUsers: (Users: Array<UserType>) => void
-//
-// }
-//
-// export type UsersPropsType=mapStateToPropsType&mapDispatchToPropsType;
-//
-// let mapStateToProps = (state: AppStateType) :mapStateToPropsType=> {
-//     return {
-//         usersPage: state.usersPage
-//     }
-// }
-//
-// let mapDispatchToProps = (dispatch: Dispatch):mapDispatchToPropsType => {
-//     return {
-//         follow: (userId: number) => {
-//             dispatch(follow(userId));
-//         },
-//         unfollow: (userId: number) => {
-//             dispatch(unfollow(userId));
-//         },
-//         setUsers: (Users: Array<UserType>) => {
-//             dispatch(setUsers(Users));
-//         }
-//     }
-// }
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(Users);
 import React from 'react';
 import {connect} from 'react-redux';
 import {
@@ -60,10 +19,9 @@ type QueryParamsType = { term?: string, friend?: string, page?: string }
 
 class UsersContainer extends React.Component<RouteComponentProps & UsersPropsType> {
     componentDidMount() {
-        //считываем из адресной строки и делаем запрос
+
         const {search} = this.props.history.location
         const parsedUrl = queryString.parse(search.substring(1)) as QueryParamsType
-        // console.log(parsedUrl)
 
         let actualPageNumber = this.props.currentPageNumber;
         if (!!parsedUrl.page) {
@@ -93,8 +51,6 @@ class UsersContainer extends React.Component<RouteComponentProps & UsersPropsTyp
     }
 
     componentDidUpdate(prevProps: UsersPropsType) {
-      //если в инпуте и селекте мы поменяли чтото и отправили на сервер запрос и в рез засетались новые фильтры
-        //то эти фильтры надо засунуть в куеристроку
         if (this.props.filter !== prevProps.filter || this.props.currentPageNumber !== prevProps.currentPageNumber) {
             const query:QueryParamsType={}
             if(!!this.props.filter.term) query.term=this.props.filter.term
@@ -133,6 +89,7 @@ class UsersContainer extends React.Component<RouteComponentProps & UsersPropsTyp
             />
         </>
     }
+
 }
 
 type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType;

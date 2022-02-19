@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import style from './App.module.css';
 import {Route, withRouter} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import {Login} from "./components/Login/Login";
@@ -9,11 +9,10 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
-import {withSuspense} from "./hoc/withSuspense";
 import MyPostsContainer from "./components/Profile/MyPosts/MyPostsContainer";
-
-const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
+import Preloader from "./components/common/Preloader";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 type mapStateToPropsType = {
     isInitialized: boolean
@@ -21,28 +20,28 @@ type mapStateToPropsType = {
 type mapDispatchToPropsType = {
     initializeApp: () => void
 }
-
 export type AppComponentType = mapStateToPropsType & mapDispatchToPropsType
 
 class App extends React.Component<AppComponentType> {
+
     componentDidMount() {
         this.props.initializeApp()
     }
 
     render() {
         if (!this.props.isInitialized) {
-            return <div>preloader</div>
+            return <div><Preloader/></div>
         }
 
         return (
-            <div className='app-wrapper'>
+            <div className={style.appWrapper}>
                 <HeaderContainer/>
                 <Navbar/>
-                <div className='app-wrapper-content'>
+                <div className={style.appWrapperContent}>
                     <Route path='/dialogs'
-                           render={withSuspense(DialogsContainer)}/>
+                           render={()=><DialogsContainer/>}/>
                     <Route path='/profile/:userId?'
-                           render={withSuspense(ProfileContainer)}/>
+                           render={()=><ProfileContainer/>}/>
                     <Route path='/users'
                            render={() => <UsersContainer/>}/>
                     <Route path='/login'
@@ -53,6 +52,7 @@ class App extends React.Component<AppComponentType> {
             </div>
         )
     }
+
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({

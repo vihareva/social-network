@@ -5,11 +5,11 @@ import {ProfileType, getUserProfile, getUserStatus, updatePhoto} from "../../red
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type PathParamsType = {
     userId: number
 }
-
 type mapStateToPropsType = {
     profile: ProfileType
     status: string
@@ -21,17 +21,13 @@ type mapDispatchToPropsType = {
     getUserStatus: (userId: number) => void
     updatePhoto: (file: File) => void
 }
-
 type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType
-
-
 // @ts-ignore
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-
         let id = this.props.match.params.userId;
         if (!id) {
             this.props.userId
@@ -43,7 +39,6 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
-
         let id = this.props.match.params.userId;
         if (id !== prevProps.match.params.userId) {
             if (!id) {
@@ -75,8 +70,8 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     userId: state.auth.id
 }) as mapStateToPropsType;
 
-
 export default compose<React.ComponentType>(
+    withAuthRedirect,
     connect(mapStateToProps, {getUserProfile, getUserStatus, updatePhoto}),
     withRouter
 )(ProfileContainer)

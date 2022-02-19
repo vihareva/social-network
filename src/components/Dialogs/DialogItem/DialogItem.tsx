@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './../Dialogs.module.css';
 import userPhoto from "../../../assets/userPhoto.jpg";
-import cs from "../../../assets/Common.module.css";
-
 
 type DialogItemType = {
     name: string
@@ -10,8 +8,8 @@ type DialogItemType = {
     changeUser: (id: string)=>void
     activeUserId: string
 }
-const DialogItem = (props: DialogItemType) => {
 
+const DialogItem = (props: DialogItemType) => {
 
     return <div className={s.userContainer}>
         <div onClick={()=>props.changeUser(props.id)}>
@@ -21,7 +19,7 @@ const DialogItem = (props: DialogItemType) => {
             {props.name}
         </div>
     </div>
-}
 
+}
 
 export default DialogItem;

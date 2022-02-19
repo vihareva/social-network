@@ -16,15 +16,19 @@ const contactImages = {
     youtube: faYoutube,
     mainLink: faPaperclip
 }
+
 type ProfileContactsPropsType={
     profile: ProfileType
 }
+
 export const ProfileContacts = (props: ProfileContactsPropsType) => {
+
     return  <div>
         <div className={s.contactsContainer}>
             {Object.keys(props.profile.contacts).map(contact => {
 
-                return <div className={`${cs.container} ${s.contactContainer}`}>
+                return <div key={contact}
+                                className={`${cs.container} ${s.contactContainer}`}>
                     <div className={s.iconContainer}>
                         <FontAwesomeIcon size={"2x"}
                                          icon={contactImages[contact as keyof ContactsType]}/>
@@ -43,4 +47,5 @@ export const ProfileContacts = (props: ProfileContactsPropsType) => {
             })}
         </div>
     </div>
+
 }

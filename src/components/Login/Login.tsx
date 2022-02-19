@@ -15,7 +15,6 @@ import {Redirect} from "react-router-dom";
 import cs from "../../assets/Common.module.css";
 import s from './Login.module.css'
 
-
 export type FormDataType = {
     email: string
     password: string
@@ -38,20 +37,25 @@ export const Login = () => {
     if (isAuth) {
         return <Redirect to={'/profile'}/>
     }
+
     const theme = createTheme({
         typography: {
             fontFamily: `"Montserrat",  sans-serif`,
             fontWeightRegular: 500,
         }
     })
+
     return <div className={s.loginContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={`${cs.container} ${s.container}`}>
                 <div style={{marginBottom: '25px'}}>
-                    <div>To log in use my accout credentials:</div>
+                    <div>To log in, use my accout credentials:</div>
                     <div>viharevakatia@gmail.com</div>
                     <div>qwerty123</div>
                 </div>
+
+                {errors?.email &&
+                <div style={{color: 'red'}}>{errors?.email?.message || 'error'}</div>}
                 <input className={`${cs.input}  ${s.input}`}
                        {...register('email', {
                            required: 'required',
@@ -61,9 +65,9 @@ export const Login = () => {
                            }
                        })}
                 />
-                {errors?.email &&
-                <div style={{color: 'red'}}>{errors?.email?.message || 'error'}</div>}
 
+                {errors?.password &&
+                <div style={{color: 'red'}}>{errors?.password?.message || 'error'}</div>}
                 <input className={`${cs.input}  ${s.input}`} type="password"
                        {...register('password', {
                            required: 'required',
@@ -73,8 +77,7 @@ export const Login = () => {
                            }
                        })}
                 />
-                {errors?.password &&
-                <div style={{color: 'red'}}>{errors?.password?.message || 'error'}</div>}
+
                 <div style={{marginBottom: '25px'}} >
                     <ThemeProvider theme={theme}>
                         <FormControlLabel label={'Remember me'}
@@ -96,9 +99,9 @@ export const Login = () => {
                 </div>
 
                 {captcha && <div>
-                    <img src={captcha} alt=""/>
-                    <input className={`${cs.input}`}
-                           {...register('captchaText', {
+                    <div><img src={captcha} alt=""/></div>
+                    <input className={`${cs.input}  ${s.input}`}
+                                    {...register('captchaText', {
                                required: 'required'
                            })}
                     />
@@ -106,7 +109,7 @@ export const Login = () => {
                     <button type={'submit'} className={`${cs.button}`}>
                         Login
                     </button>
-                {appError && <div>{appError} </div>}
+                {appError && <div style={{color:'red'}}>{appError} </div>}
             </div>
         </form>
     </div>

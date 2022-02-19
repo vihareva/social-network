@@ -26,12 +26,12 @@ export type ProfileDescriptionFormDataType = {
 export type ProfileDescriptionFormPropsType = {
     profile: ProfileType
     userId: number
-    // updateProfileDescription:(data: ProfileDescriptionFormDataType)=>void
     switchOffEditMode: () => void
 }
 
 export const ProfileDescriptionForm = ({profile, userId, ...props}: ProfileDescriptionFormPropsType) => {
     const dispatch = useDispatch();
+
     const {register, handleSubmit} = useForm<ProfileDescriptionFormDataType>({
         defaultValues: {
             lookingForAJob: profile.lookingForAJob,
@@ -42,6 +42,7 @@ export const ProfileDescriptionForm = ({profile, userId, ...props}: ProfileDescr
         },
         mode: 'onBlur'
     });
+
     const theme = createTheme({
         typography: {
             fontFamily: `"Montserrat",  sans-serif`,
@@ -53,10 +54,12 @@ export const ProfileDescriptionForm = ({profile, userId, ...props}: ProfileDescr
             }
         }
     })
+
     const onSubmit = (data: ProfileDescriptionFormDataType) => {
         dispatch(updateProfileDescription(data, userId));
         props.switchOffEditMode()
     }
+
     return   <ThemeProvider theme={theme}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormGroup>
@@ -93,9 +96,7 @@ export const ProfileDescriptionForm = ({profile, userId, ...props}: ProfileDescr
                                               {...register(contactName)}
                             />
                         })}
-                        {/*<Button type={'submit'} variant={'contained'} color={'primary'}>*/}
-                        {/*    edit*/}
-                        {/*</Button>*/}
+
                         <div style={{display:"flex", justifyContent:"flex-start"}}>
                             <button type={'submit'} className={`${cs.button}`}>
                                 Edit
@@ -104,6 +105,6 @@ export const ProfileDescriptionForm = ({profile, userId, ...props}: ProfileDescr
 
                     </FormGroup>
                 </form>
-
     </ThemeProvider>
+
 }

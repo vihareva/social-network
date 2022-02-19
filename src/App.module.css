@@ -1,26 +1,22 @@
-.app-wrapper {
+.appWrapper {
     margin: 0 auto;
     display: grid;
     width: 80%;
     grid-template-areas: "h h"
                        "n c";
-
     grid-template-rows: 80px 1fr;
     grid-template-columns: 4fr 12fr;
     padding: 1px;
     border-radius: 20px;
-    /* grid-gap: 10px; */
 }
 
-.app-wrapper-content {
+.appWrapperContent {
     grid-area: c;
     background-color: #F9FBFC;
     padding: 20px;
     border-radius: 0 0 20px 0;
+    min-height: 81vh;
 }
 
 
-.App-link {
-    color: #61dafb;
-}
 
